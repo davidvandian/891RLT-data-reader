@@ -226,65 +226,65 @@ int main() {
     std::filesystem::path dir{};
     bool isfirst{ true };
     while (true) {
-        std::filesystem::path Zfiledir{};
-        std::filesystem::path θfiledir{};
+    std::filesystem::path Zfiledir{};
+    std::filesystem::path θfiledir{};
 
-        std::string type;
-        std::cout << "Input measurement type: ";
+    std::string type;
+    std::cout << "Input measurement type: ";
         std::getline(std::cin, type);
-        std::cout << '\n' << std::flush;
+    std::cout << '\n' << std::flush;
 
-        fileinput(type, Zfiledir, "txt");
-        fileinput("theta", θfiledir, "txt");
+    fileinput(type, Zfiledir, "txt");
+    fileinput("theta", θfiledir, "txt");
 
-        std::ifstream Zfile{ Zfiledir };
-        std::ifstream θfile{ θfiledir };
+    std::ifstream Zfile{ Zfiledir };
+    std::ifstream θfile{ θfiledir };
 
-        const auto [size, newfilename] = preprocessing(Zfile, θfile, type);
+    const auto [size, newfilename] = preprocessing(Zfile, θfile, type);
+    
+    std::vector<data> list{};
 
-        std::vector<data> list{};
+    cursornav(Zfile, 13, 0, true, false);
+    cursornav(θfile, 13, 0, true, false);
 
-        cursornav(Zfile, 13, 0, true, false);
-        cursornav(θfile, 13, 0, true, false);
+    for (size_t i{ 0 }; i < (300 / size) + 1; ++i) {
+        data datapoint{};
 
-        for (size_t i{ 0 }; i < (300 / size) + 1; ++i) {
-            data datapoint{};
+        datapoint.freq = reader(Zfile, 1, 11, 5);
+        datapoint.ohm = reader(Zfile, 0, 12, 5, true);
+        double θfreq{ reader(θfile, 1, 11, 5) };
+        datapoint.deg = reader(θfile, 0, 11, 6);
 
-            datapoint.freq = reader(Zfile, 1, 11, 5);
-            datapoint.ohm = reader(Zfile, 0, 12, 5, true);
-            double θfreq{ reader(θfile, 1, 11, 5) };
-            datapoint.deg = reader(θfile, 0, 11, 6);
+        if (datapoint.freq != θfreq) { std::cerr << "These files have different frequencies and are thus incompatible\n"; }
 
-            if (datapoint.freq != θfreq) { std::cerr << "These files have different frequencies and are thus incompatible\n"; }
-
-            cursornav(Zfile, 1, 4, false, false);
-            cursornav(θfile, 1, 5, false, false);
+        cursornav(Zfile, 1, 4, false, false);
+        cursornav(θfile, 1, 5, false, false);
 
             if (datapoint.freq != INFD && datapoint.ohm != INFD && datapoint.deg != INFD) { list.push_back(datapoint); }
-        }
+    }
 
         bool samedir{ ynq("Save result in same directory?") };
         if ((Zfiledir.parent_path() == θfiledir.parent_path()) && isfirst && samedir) {
-            dir = Zfiledir.parent_path();
-        }
+        dir = Zfiledir.parent_path();
+    }
         else if (!samedir) {
             std::filesystem::path ndir{};
             fileinput("result", ndir);
             while (std::filesystem::status(ndir).type() != std::filesystem::file_type::directory) {
-                std::cout << "\nNot a folder! ";
+            std::cout << "\nNot a folder! ";
                 fileinput("again", ndir);
-            }
+        }
             if (ndir == dir) { std::cout << "This is the same directory :) you just wasted time reinputting this :) :) :)"; }
             dir = ndir;
-        }
+    }
         auto ldir{ dir };
         std::ofstream output{ ldir.concat(newfilename) };
 
-        output << "Frequency (Hz)," + type + "-mag," + type + "-phase(deg)\n";
-
-        for (auto& i : list) {
-            output << i.freq << ',' << std::scientific << i.ohm << ',' << i.deg << '\n';
-        }
+    output << "Frequency (Hz)," + type + "-mag," + type + "-phase(deg)\n";
+    
+    for (auto& i : list) {
+        output << i.freq << ',' << std::scientific << i.ohm << ',' << i.deg << '\n';
+    }
 
         std::cout << "\nSaved to " << ldir << '\n';
         
@@ -292,7 +292,7 @@ int main() {
 
         isfirst = false;
     }
-
+	
 	std::cout << "\nPress Enter to exit...";
 	std::cin.get();
 
