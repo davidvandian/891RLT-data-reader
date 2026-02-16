@@ -71,7 +71,7 @@ pad and modifying them with the buttons on the side.
 under measurement; the options are 0.5 V and 1 V.
     The STEP frequency controls how many datapoints the machine takes. The for-
 mula from the STEP parameter s to the number of datapoints n is
-	n = (300 / s) + 1,
+        n = (300 / s) + 1,
 the addition term coming from the fact that the machine counts inclusively.
     When s > 1, the machine gains the useless ability to linearly interpolate
 between datapoints. Make sure it’s off by hitting DISP on the bottom to enter
@@ -108,4 +108,5 @@ Finishing up
 and then unplug the machine. Then, process the data you’ve gotten into a .csv by
 firing up the data-parsing .exe I created and feeding the outputted .txt files
 there, since the machine outputs the data into a very inconvenient format. Now
+
 you’re free to process all your sweet data. Enjoy!
