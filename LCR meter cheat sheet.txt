@@ -1,0 +1,111 @@
+Cheat Sheet
+B&K Precision LCR Meter 891
+
+David Vandian
+2/16/2026
+
+    This is a very quick guide on how to use the LCR meter to make measurements.
+Well, you should probably read the manual, but it’s not that easy to follow, and
+I’ve already done it for you, so here is my gift from me to you. For additional
+points of confusion, ask me or refer to the manual, which is under the machine.
+
+Before you start
+    Make sure that the machine is plugged in before turning it on. This may seem
+like a silly thing to say, but we are in the habit of unplugging the machine
+after finishing using it (a habit you, reader, would do well to follow!), so I
+felt it necessary to make mention of this.
+
+Calibration
+    Once you turn on the machine, it should be calibrated. Press the SYSTEM key,
+located right below the screen to the right, and then press CAL, which is again
+at the bottom. There are two calibrations that must be performed.
+    First, we will do an open calibration. Leave the probes unconnected to any-
+thing and hit OPEN CAL, located on the right side of the screen and wait for it
+to finish. It should take about a minute.
+    Next is the short calibration. Connect the prongs together (i.e., short the
+connection—now you know the name’s origin) and smash the SHORT CAL button, and
+again wait for it to finish, about 30 seconds.
+    With that, you are done calibrating.
+NOTA BENE that the wires bear stray impedances, so, especially for tasks dealing
+with very small capacitances, one should perform the calibration in such a way
+that the wires remain, as much as possible, in the same posture as during when
+you’re measuring for best accuracy.
+
+Measurement
+    The most-used mode will generally be the SWEEP mode, which is accessed by
+pressing the corresponding button on the bottom. It is right next to the SYSTEM
+key. The first press will begin the linear sweep mode (and LIN will correspond-
+ingly be highlighted), and pressing again will enable logarithmic sweep mode (a-
+gain, with LOG thereby being highlighted).
+    Before measuring, you’ll need to know how to set the parameters. Accessing
+them is done simply by pressing any one of the arrow keys.
+
+    FUNC parameter
+    First the FUNC parameter is what will be highlighted. You can change what’s
+being measured by hitting the MEAS FUNC button at the bottom left; the letters
+are standard abbreviations used in physics, with
+        C = capacitance,
+        L = inductance,
+        Z = magnitude of impedance, and
+        R = resistance.
+You can then control how the machine makes the measurement by selecting one of
+the two options on the right side: the first option indicates measurement in
+series mode, and the second in parallel mode; for Z and R, this effects a corre-
+sponding change to Y (admittance; 1/X) and G (conductivity; 1/R), respectively,
+both measured in siemens.
+    Each parameter has a secondary parameter as well:
+        C and L:   choice between Q(uality), D(ispersion),
+                   and R (plus also G in parallel mode),
+                   toggled by repeated pressings of the button;
+        Z (and Y): θ, the phase angle; and
+        R (or G):  X (or B), the reactance (or susceptance), which is the
+                             imaginary part of impedance (or admittance).
+NOTA BENE that in SWEEP mode, the machine only measures one of the parameters at
+a time, so when measuring X or R (Y or G), you will need to make a second sweep
+to have complete data; make sure to save your data before doing so, though!
+
+    Other parameters
+    The other parameters may also be edited by navigating to them with the arrow
+pad and modifying them with the buttons on the side.
+    The LEVEL parameter controls the RMS voltage to be delivered to the object
+under measurement; the options are 0.5 V and 1 V.
+    The STEP frequency controls how many datapoints the machine takes. The for-
+mula from the STEP parameter s to the number of datapoints n is
+	n = (300 / s) + 1,
+the addition term coming from the fact that the machine counts inclusively.
+    When s > 1, the machine gains the useless ability to linearly interpolate
+between datapoints. Make sure it’s off by hitting DISP on the bottom to enter
+table mode (TBL will be highlighted) and ensuring INTERP, on the side, is OFF.
+    To edit the start and stop frequencies of SWEEP, first ensure that AUTO FREQ
+is OFF by checking the option on the side of the screen; once this is the case,
+the ability to navigate to START and STOP (frequency) with the arrow keys will
+be granted. The values may be changed either by typing in your number with the
+number pad and choosing Hz or kHz, or by using the softkeys on the side of the
+screen to move between digits and hitting INC(rement) or DEC(rement).
+    The HI and LO options control the scale of the graph displayed after measur-
+ing. I would advise leaving this alone, but for those who want to edit it, this
+may be done by following a similar process to how to edit the frequency range.
+
+    Measuring flow
+    Once your options are set, you may hit START to begin your measurement. Per
+my rough calculations, it takes the machine roughly ⅔ second to get one datum,
+so you won’t need to wait long. Review your data on the graph and in the table
+and then save your result by following the procedure in the next section.
+    When measuring complex impedance, whether in Z mode or R mode, it is impera-
+tive that you make a second measurement immediately! Once you save your result,
+switch to the other parameter (being θ or X (or B)) by hitting SWAP, and make
+a new measurement, which you also need to save, of course.
+
+Saving
+    Once you make your measurement, save it by hitting the SAV button by the
+keypad and then hitting SAVE MEAS. You should have a FAT32-formatted USB flash
+drive plugged in: the machine automatically detects it and saves it there. You
+may save your measurement parameters by hitting SAV CONFIG, and save a screen-
+shot of the current display by hitting SAVE SCREEN.
+
+Finishing up
+    Once you’re done, power off the machine simply by hitting the power button,
+and then unplug the machine. Then, process the data you’ve gotten into a .csv by
+firing up the data-parsing .exe I created and feeding the outputted .txt files
+there, since the machine outputs the data into a very inconvenient format. Now
+you’re free to process all your sweet data. Enjoy!
